@@ -1,0 +1,257 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.7.dtd" >
+   <PATCH nodename="C:\Users\kimchips\Desktop\LUNAR SURFACE SECOND EDITION\VVVV\preview ofxRay Camera.v4p" scrollx="200" scrolly="1800" systemname="preview ofxRay Camera" filename="C:\Users\kimchips\Desktop\LUNAR SURFACE SECOND EDITION\VVVV\preview ofxRay Camera.v4p">
+   <BOUNDS type="Window" left="23480" top="9660" width="12590" height="9150">
+   </BOUNDS>
+   <PACK Name="addonpack" Version="33.7.0">
+   </PACK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="0">
+   <BOUNDS type="Node" left="2050" top="4140" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2050" top="4140" width="4000" height="3000">
+   </BOUNDS>
+   <BOUNDS type="Window" left="58880" top="9230" width="15650" height="13790">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Depth Buffer Mode" slicecount="1" values="Standard">
+   </PIN>
+   <PIN pinname="Depth Buffer Format" slicecount="1" values="D32_Float">
+   </PIN>
+   </NODE>
+   <NODE systemname="AxisAndGrid (DX11)" filename="%VVVV%\packs\dx11\nodes\modules\AxisAndGrid\AxisAndGrid (DX11).v4p" nodename="AxisAndGrid (DX11)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="2590" top="3100" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="2220" top="3640" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer Out" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   <PIN pinname="Layer 1" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Input Count" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Layer 3" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Layer Out" dstnodeid="0" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Layer" dstnodeid="2" dstpinname="Layer 2">
+   </LINK>
+   <NODE systemname="Camera (Transform Softimage)" filename="%VVVV%\lib\nodes\modules\Transform\Camera (Transform Softimage).v4p" nodename="Camera (Transform Softimage)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="3150" top="3710" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="View" dstnodeid="0" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Projection" dstnodeid="0" dstpinname="Projection">
+   </LINK>
+   <NODE systemname="Preview (ViewProjection" filename="Preview (ViewProjection.v4p" nodename="Preview (ViewProjection.v4p" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="1905" top="2040" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="125" top="0" width="3560" height="4370">
+   </BOUNDS>
+   <BOUNDS type="Window" left="20730" top="10280" width="6180" height="5940">
+   </BOUNDS>
+   <PIN pinname="View" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="Layer" dstnodeid="2" dstpinname="Layer 1">
+   </LINK>
+   <NODE systemname="Kinect2 (DX11.Pointcloud)" filename="%VVVV%\packs\dx11-pointcloud\nodes\modules\Setup\Kinect2 (DX11.Pointcloud).v4p" nodename="Kinect2 (DX11.Pointcloud)" componentmode="Hidden" id="11">
+   <BOUNDS type="Node" left="6910" top="2570" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   <PIN pinname="RGB" visible="1">
+   </PIN>
+   <PIN pinname="Depth" visible="1">
+   </PIN>
+   <PIN pinname="RGBDepth" visible="1">
+   </PIN>
+   <PIN pinname="Depth FOVXY" visible="1">
+   </PIN>
+   <PIN pinname="Reset" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="PointcloudBuffer (DX11.Pointcloud Kinect)" filename="%VVVV%\packs\dx11-pointcloud\nodes\modules\Data\PointcloudBuffer (DX11.Pointcloud Kinect).v4p" nodename="PointcloudBuffer (DX11.Pointcloud Kinect)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="6790" top="3340" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   <PIN pinname="RGB" visible="1">
+   </PIN>
+   <PIN pinname="Depth" visible="1">
+   </PIN>
+   <PIN pinname="RGBDepth" visible="1">
+   </PIN>
+   <PIN pinname="Depth FOVXY" visible="1">
+   </PIN>
+   <PIN pinname="PointcloudBuffer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Resolution" dstnodeid="12" dstpinname="Resolution">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="RGB" dstnodeid="12" dstpinname="RGB">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Depth" dstnodeid="12" dstpinname="Depth">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="RGBDepth" dstnodeid="12" dstpinname="RGBDepth">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Depth FOVXY" dstnodeid="12" dstpinname="Depth FOVXY">
+   </LINK>
+   <NODE systemname="AsGeometry (DX11.Pointcloud PointcloudBuffer)" filename="%VVVV%\packs\dx11-pointcloud\nodes\modules\Visualization\AsGeometry (DX11.Pointcloud PointcloudBuffer).v4p" nodename="AsGeometry (DX11.Pointcloud PointcloudBuffer)" componentmode="Hidden" id="13">
+   <BOUNDS type="Node" left="6610" top="3910" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Geometry" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="PointcloudBuffer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Constant (DX11.Effect)" filename="%VVVV%\packs\dx11\nodes\dx11\Constant.fx" nodename="Constant (DX11.Effect)" componentmode="Hidden" id="14">
+   <BOUNDS type="Node" left="6630" top="4340" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Layer In" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Render State" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="13" srcpinname="Layer" dstnodeid="14" dstpinname="Layer In">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Layer" dstnodeid="2" dstpinname="Layer 3">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="PointcloudBuffer" dstnodeid="13" dstpinname="PointcloudBuffer">
+   </LINK>
+   <NODE systemname="Grid (DX11.Geometry)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Grid (DX11.Geometry)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="6210" top="2880" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Geometry Out" visible="1">
+   </PIN>
+   <PIN pinname="SizeXY" slicecount="2" values="0.01,0.01">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="Geometry Out" dstnodeid="13" dstpinname="Geometry">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="FullScreen" id="16">
+   <BOUNDS type="Node" left="4260" top="5650" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4260" top="5650" width="4000" height="3000">
+   </BOUNDS>
+   <BOUNDS type="Window" left="85940" top="5600" width="4200" height="3560">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="View" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="2010" top="390" width="800" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2010" top="390" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="1" values="|..\projector to kinect calibration.txt|">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="file.txt">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|All Text Formats (*.csv, *.dtd, *.html, *.txt, *.xml)||*.csv;*.dtd;*.html;*.htm;*.txt;*.xml||Text (*.txt)||*.txt||XML (*.xml)||*.xml||CSV (*.csv)||*.csv||DTD (*.dtd)||*.dtd||HTML (*.html, *.htm)||*.html;*.htm|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Output String" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Change (String)" nodename="Change (String)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="2800" top="880" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="OnChange" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Bang On Create" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Output String" dstnodeid="19" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="20">
+   <BOUNDS type="Node" left="6160" top="5700" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6160" top="5700" width="4000" height="3000">
+   </BOUNDS>
+   <BOUNDS type="Window" left="25760" top="14130" width="4220" height="3560">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="View" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE systemname="Rasterizer (DX11.RenderState)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Rasterizer (DX11.RenderState)" componentmode="Hidden" id="21">
+   <BOUNDS type="Node" left="5820" top="1580" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Render State" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Mode" slicecount="1" values="NoCullSimple">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Render State" dstnodeid="14" dstpinname="Render State">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Layer" dstnodeid="20" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Layer" dstnodeid="16" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="Reader (ofxRayCamera)" filename="modules\Reader (ofxRayCamera).v4p" nodename="Reader (ofxRayCamera)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2010" top="1280" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1">
+   </PIN>
+   <PIN pinname="Filename" slicecount="1" visible="1" values="|..\..\studio fabric.ofxRayCamera.txt|">
+   </PIN>
+   <PIN pinname="Read" slicecount="1" visible="1" values="0">
+   </PIN>
+   <BOUNDS type="Window" left="9590" top="4170" width="14230" height="14080">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="View" dstnodeid="10" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Projection" dstnodeid="10" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="View" dstnodeid="16" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Projection" dstnodeid="16" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output String" dstnodeid="3" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="View" dstnodeid="20" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Projection" dstnodeid="20" dstpinname="Projection">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="OnChange" dstnodeid="3" dstpinname="Read">
+   </LINK>
+   </PATCH>
