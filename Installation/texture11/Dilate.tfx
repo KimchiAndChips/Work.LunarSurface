@@ -1,0 +1,46 @@
+//@author: vux
+//@help: template for texture fx
+//@tags: texture
+//@credits: 
+
+Texture2D texture2d : PREVIOUS;
+float2 size : TARGETSIZE;
+
+struct psInput
+{
+	float4 p : SV_Position;
+	float2 uv : TEXCOORD0;
+};
+
+bool hasValue(float4 col) {
+	return col.z > 0.5f;
+}
+
+float4 PS(psInput input) : SV_Target
+{
+	uint2 x = input.uv * size;
+	float4 c = texture2d[x];
+	if (!hasValue(c)) {
+		float4 left = texture2d[x - uint2(1,0)];
+		float4 right = texture2d[x + uint2(1,0)];
+		float4 up = texture2d[x - uint2(0,1)];
+		float4 down = texture2d[x + uint2(0,1)];
+		if(hasValue(left) && hasValue(right)) {
+			c = (left + right) / 2.0f;
+		} else if (hasValue(up) && hasValue(down)) {
+			c = (up + down) / 2.0f;
+		}
+	}
+	return c;
+}
+
+technique10 Interpolate
+{
+	pass P0
+	{
+		SetPixelShader(CompileShader(ps_4_0,PS()));
+	}
+}
+
+
+

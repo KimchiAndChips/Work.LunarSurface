@@ -31,10 +31,14 @@ cbuffer cbPerDraw : register( b0 )
 cbuffer cbPerObj : register( b1 )
 {
 	float4x4 tW : WORLD;
-	float Alpha <float uimin=0.0; float uimax=1.0;> = 1; 
-	float4 cAmb <bool color=true;String uiname="Color";> = { 1.0f,1.0f,1.0f,1.0f };
-	float4x4 tTex <string uiname="Texture Transform"; bool uvspace=true; >;
 	float4x4 tWorldInverse <string uiname="Inverse World Transform"; >;
+	float thickness = 0.05f;
+	float brightness = 0.5f;
+	float ambient = 0.2f;
+	float3 direction = float3(1.0f, 1.0f, -1.0f);
+	float master = 1.0f;
+	float fill = 0.0f;
+	float gamma = 1.0f;
 };
 
 struct VS_IN
@@ -63,20 +67,21 @@ vs2ps VS(VS_IN input)
     vs2ps Out = (vs2ps)0;
 	float4 TexCd = input.PosO;
 	
-    TexCd = mul(input.TexCd, tTex);
-	
-	float4 sampledPosition = World.SampleLevel(g_samNearest, TexCd.xy, 0);
+	float4 sampledPosition = World.SampleLevel(g_samNearest, input.TexCd.xy, 0);
 	sampledPosition.w = 1.0f;
 	
 	float4 PosO = sampledPosition;
 	PosO = mul(PosO, tW);
 	Out.PosO = mul(PosO, tWorldInverse);
 	
+	
+	//--
+	//Edge blending (and output coord)
+	//--
+	//
 	float4 PosPOurs = mul(PosO, tVPOurs);
 	Out.PosWVP = PosPOurs;
 	PosPOurs /= PosPOurs.w;
-	
-	
 	
 	float4 PosPTheirs = mul(PosO, tVPTheirs);
 	PosPTheirs /= PosPTheirs.w;
@@ -90,18 +95,20 @@ vs2ps VS(VS_IN input)
 	//blend if insideTheirs
 	float blendFactor = crossover(xOurs, xTheirs);
 	Out.Factor = insideTheirs ? blendFactor : 1.0f;
+	//
+	//--
 	
+	
+	//--
+	//Culling
+	//--
+	//
+	//cull all vertices outside of the bounding sphere
+	Out.PosWVP.w *= length(Out.PosO.xyz) < (1.0f + thickness) * 1.1f;
+	//
+	//--
     return Out;
 }
-
-
-float thickness = 0.05f;
-float brightness = 0.5f;
-float ambient = 0.2f;
-float3 direction = float3(1.0f, 1.0f, -1.0f);
-float master = 1.0f;
-float fill = 0.0f;
-float gamma = 1.0f;
 
 float4 PS(vs2ps In): SV_Target
 {
